@@ -1,0 +1,67 @@
+#
+# This code has the following examples:
+# - Deploying code in the docker container
+# - Using flask to serve a react app
+#
+
+#
+# Getting started
+#
+
+git clone ????
+
+# --- To serve a react app do the following ---
+# create a directory under api called "react_app"
+# copy the "build" directory from a react app under the "react_app"  directory. 
+# "react_app" is intentionally not in git
+#
+
+# from the project directory
+
+pipenv install
+
+#
+# running from command line (dev)
+#
+
+pipenv shell
+cd api
+python app.py
+
+#
+# running from command line (pre - prod)
+#
+
+pipenv shell
+cd api
+gunicorn app:app --access-logfile -
+
+#
+# Create the docker container
+#
+
+# Update the requirements.txt file only if it has changed
+
+pipenv lock -r > requirements.txt
+
+# build the image from the project root
+
+docker build . -t flask_react
+
+# test the docker image local
+
+docker container stop flask_container
+docker container rm flask_container
+docker run --name flask_container -e PORT=8000 -p 8000:8000 flask_react
+
+docker exec -it flask_container bash
+#
+# push the container to heroku. 
+# replace: infinite-fjord-81443 with your app
+#
+
+heroku container:push web --app infinite-fjord-81443
+
+# release it to the work and now test it
+
+heroku container:release web --app infinite-fjord-81443
