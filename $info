@@ -8,7 +8,7 @@
 # Getting started
 #
 
-git clone ????
+git clone https://github.com/larryevolveu/flask_react.git
 
 # --- To serve a react app do the following ---
 # create a directory under api called "react_app"
