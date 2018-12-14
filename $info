@@ -60,6 +60,7 @@ docker exec -it flask_container bash
 # replace: infinite-fjord-81443 with your app
 #
 
+heroku container:login
 heroku container:push web --app infinite-fjord-81443
 
 # release it to the work and now test it
